@@ -1,16 +1,24 @@
-var API_key = "RGAPI-1c55dafc-0505-4cbf-be9f-969276d96c7d"
-var euw_url  = "https://euw1.api.riotgames.com";
+var API_key = "RGAPI-e6f9ba2b-7b1e-464d-85a8-11212c934962"
+var server_url  = "";
 var summoner_name = "";
+var RegionNumber = "";
 const regions = ["br1.api.riotgames.com","eun1.api.riotgames.com","euw1.api.riotgames.com","jp1.api.riotgames.com","kr.api.riotgames.com","la1.api.riotgames.com","la2.api.riotgames.com","na1.api.riotgames.com","oc1.api.riotgames.com","tr1.api.riotgames.com","ru.api.riotgames.com","ph2.api.riotgames.com","sg2.api.riotgames.com","th2.api.riotgames.com","tw2.api.riotgames.com","vn2.api.riotgames.com"]
 
+function chooseRegion(){
+    RegionNumber = document.getElementById("choose_region").value;
+    document.getElementById("test_region").innerHTML = regions[RegionNumber];
+    server_url = regions[RegionNumber];
+}
+
 function Search_summoner(){
-    summoner_name = document.getElementById("summoner_name").value;
+    summoner_name = document.getElementById("summoner_name").value  ;
+    chooseRegion();
     data();
 }
 
 async function data() {
     var summonerNameUrl = "/lol/summoner/v4/summoners/by-name/"+ summoner_name;
-    var fullSummonerNameUrl = euw_url+summonerNameUrl+"?api_key="+API_key;
+    var fullSummonerNameUrl = "https://"+server_url+summonerNameUrl+"?api_key="+API_key;
     console.log(fullSummonerNameUrl);
     const dataSummoner_1 = await fetch(fullSummonerNameUrl);
     const dataSummoner_full = await dataSummoner_1.json();
@@ -30,6 +38,4 @@ async function data() {
     document.getElementById("summonerprofilepic_picture").src = profile_pic_url;
 }
 
-function chooseRegion(){
 
-}
